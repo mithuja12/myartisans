@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyArtisans - Product Listing</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>MyArtisans</h1>
+        <p>Artisan Product Listing</p>
+    </header>
+
+    <main>
+
+        <!-- Product Form -->
+        <section class="card">
+
+            <h2>Create Product Listing</h2>
+
+            <label>Product Name</label>
+            <input
+                type="text"
+                id="productName"
+                placeholder="Enter product name"
+            >
+
+            <label>Artisan Name</label>
+            <input
+                type="text"
+                id="artisanName"
+                placeholder="Enter artisan name"
+            >
+
+            <label>Material</label>
+            <input
+                type="text"
+                id="material"
+                placeholder="Example: Cotton"
+            >
+
+            <label>Region</label>
+            <input
+                type="text"
+                id="region"
+                placeholder="Enter region"
+            >
+
+            <label>Price (₹)</label>
+            <input
+                type="number"
+                id="price"
+                placeholder="Enter price"
+            >
+
+            <label>Availability</label>
+            <select id="availability">
+                <option value="Available">Available</option>
+                <option value="Limited">Limited</option>
+                <option value="Sold Out">Sold Out</option>
+            </select>
+
+            <label>Craft Story</label>
+            <textarea
+                id="craftStory"
+                placeholder="Tell the story behind this craft..."
+            ></textarea>
+
+            <button onclick="generateProduct()">
+                Create Product Listing
+            </button>
+
+        </section>
+
+
+        <!-- Product Preview -->
+        <section class="card">
+
+            <h2>Product Preview</h2>
+
+            <div class="product-preview">
+
+                <h3 id="previewName">
+                    Product Name
+                </h3>
+
+                <p>
+                    <strong>Artisan:</strong>
+                    <span id="previewArtisan">-</span>
+                </p>
+
+                <p>
+                    <strong>Material:</strong>
+                    <span id="previewMaterial">-</span>
+                </p>
+
+                <p>
+                    <strong>Region:</strong>
+                    <span id="previewRegion">-</span>
+                </p>
+
+                <p>
+                    <strong>Price:</strong>
+                    ₹<span id="previewPrice">0</span>
+                </p>
+
+                <p>
+                    <strong>Availability:</strong>
+                    <span id="previewAvailability">-</span>
+                </p>
+
+
+                <!-- Craft Story -->
+                <div class="story">
+
+                    <h4>Craft Story</h4>
+
+                    <p id="previewStory">
+                        Your craft story will appear here.
+                    </p>
+
+                </div>
+
+
+                <!-- QR Code -->
+                <div class="qr-section">
+
+                    <h4>Share Product</h4>
+
+                    <div id="qrcode"></div>
+
+                </div>
+
+
+                <!-- Share Button -->
+                <button
+                    class="share-button"
+                    onclick="shareProduct()"
+                >
+                    Share Product
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
