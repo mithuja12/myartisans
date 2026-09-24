@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArtisanConnect</title>
+
+    <style>
+
+        /* ================================
+           GLOBAL
+        ================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f1e8;
+            color: #27332c;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ================================
+           APP CONTAINER
+        ================================= */
+
+        .app {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .screen {
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            margin: auto;
+            min-height: 100vh;
+            background: #f6f1e8;
+        }
+
+        /* ================================
+           COLORS
+        ================================= */
+
+        :root {
+            --green: #28664c;
+            --dark-green: #194b38;
+            --light-green: #dcebdc;
+            --cream: #f6f1e8;
+            --brown: #9b5938;
+            --light-brown: #ead7c0;
+            --white: #ffffff;
+            --gray: #777;
+            --border: #ddd2c2;
+            --yellow: #efe1ad;
+        }
+
+        /* ================================
+           LANDING PAGE
+        ================================= */
+
+        .landing {
+            min-height: 100vh;
+            background: var(--cream);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--green);
+        }
+
+        .language-select {
+            border: none;
+            background: #e9dfd0;
+            border-radius: 20px;
+            padding: 8px 14px;
+        }
+
+        .landing-content {
+            max-width: 1100px;
+            margin: auto;
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .landing-text {
+            max-width: 550px;
+        }
+
+        .small-heading {
+            color: var(--brown);
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .landing-text h1 {
+            font-size: 58px;
+            line-height: 1;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+
+        .landing-text h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .landing-text p {
+            color: var(--gray);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .hero-circle {
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: var(--light-brown);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .hero-icon {
+            font-size: 130px;
+        }
+
+        .hero-circle p {
+            color: var(--brown);
+            font-weight: bold;
+        }
+
+        .primary-button {
+            border: none;
+            background: var(--green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .primary-button:hover {
+            background: var(--dark-green);
+        }
+
+        .landing-features {
+            display: flex;
+            gap: 40px;
+            margin-left: 15%;
+            margin-top: 20px;
+        }
+
+        .landing-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brown);
+            font-weight: bold;
+        }
+
+        /* ================================
+           LOGIN
+        ================================= */
+
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .login-card {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .login-card h1 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .login-card > p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--green);
+        }
+
+        .full-button {
+            width: 100%;
+        }
+
+        .login-divider {
+            text-align: center;
+            color: #999;
+            margin: 20px 0;
+        }
+
+        .secondary-button {
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            border: 1px solid var(--green);
+            background: white;
+            color: var(--green);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .create-account {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+        }
+
+        .create-account span {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .back-button {
+            border: none;
+            background: transparent;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        /* ================================
+           APP HEADER
+        ================================= */
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 20px 10px;
+        }
+
+        .app-header h2 {
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .app-header p {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .profile-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #d99572;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ================================
+           DASHBOARD
+        ================================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 15px 20px;
+        }
+
+        .stat-card {
+            background: var(--green);
+            color: white;
+            padding: 15px 5px;
+            border-radius: 13px;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 23px;
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 10px 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            padding: 20px 10px;
+            min-height: 110px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            font-size: 28px;
+        }
+
+        .dashboard-card span {
+            display: block;
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .tip {
+            margin: 15px 20px;
+            background: var(--yellow);
+            border-radius: 15px;
+            padding: 17px;
+        }
+
+        .tip h3 {
+            font-size: 15px;
+        }
+
+        .tip p {
+            color: #666;
+            margin-top: 7px;
+            font-size: 13px;
+        }
+
+        .activity {
+            padding: 10px 20px;
+        }
+
+        .activity h3 {
+            margin-bottom: 12px;
+        }
+
+        .activity-item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .activity-time {
+            float: right;
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* ================================
+           PAGE HEADER
+        ================================= */
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 22px 20px;
+        }
+
+        .page-header h2 {
+            font-size: 21px;
+        }
+
+        /* ================================
+           ADD PRODUCT
+        ================================= */
+
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px 20px;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .step-active {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .upload-box {
+            margin: 10px 20px;
+            background: white;
+            border: 2px dashed #c7b8a7;
+            border-radius: 15px;
+            padding: 30px 15px;
+            text-align: center;
+        }
+
+        .camera-icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .upload-box p {
+            color: var(--gray);
+            margin: 7px 0 15px;
+            font-size: 13px;
+        }
+
+        .upload-box input {
+            width: 100%;
+        }
+
+        .photo-comparison {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+
+        .photo-box {
+            width: 43%;
+        }
+
+        .photo-box small {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gray);
+        }
+
+        .photo-placeholder {
+            height: 120px;
+            background: var(--light-brown);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+        }
+
+        .enhanced-photo {
+            background: var(--light-green);
+        }
+
+        .ai-enhancement {
+            margin: 10px 20px;
+            background: #edf5e9;
+            padding: 17px;
+            border-radius: 15px;
+        }
+
+        .ai-enhancement h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .ai-enhancement p {
+            font-size: 13px;
+            margin: 7px 0;
+        }
+
+        .bottom-button {
+            padding: 10px 20px;
+        }
+
+        /* ================================
+           VOICE CATALOG
+        ================================= */
+
+        .voice-page {
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .voice-page > p {
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .microphone {
+            width: 130px;
+            height: 130px;
+            margin: 25px auto 15px;
+            background: var(--light-brown);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            box-shadow: 0 0 0 15px rgba(234,215,192,0.35);
+        }
+
+        .voice-wave {
+            color: var(--brown);
+            font-size: 25px;
+            margin: 20px;
+        }
+
+        .voice-select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            margin-bottom: 12px;
+        }
+
+        .voice-text {
+            width: 100%;
+            min-height: 100px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        /* ================================
+           CATALOG
+        ================================= */
+
+        .catalog-content {
+            padding: 0 20px;
+        }
+
+        .catalog-note {
+            color: var(--gray);
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .product-image-preview {
+            width: 100%;
+            height: 190px;
+            background: var(--light-brown);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .product-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-top: 12px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px;
+            background: white;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: none;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 10px 0 20px;
+        }
+
+        .tag {
+            background: var(--light-green);
+            color: var(--green);
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+
+        /* ================================
+           PRICE
+        ================================= */
+
+        .price-content {
+            padding: 0 20px;
+        }
+
+        .price-card {
+            background: #edf5e9;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .price-card small {
+            color: var(--gray);
+        }
+
+        .price-card h1 {
+            color: var(--green);
+            font-size: 45px;
+            margin: 10px 0;
+        }
+
+        .price-status {
+            display: inline-block;
+            background: #cce5c5;
+            color: var(--green);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 11px;
+        }
+
+        .price-range {
+            padding: 20px 0;
+        }
+
+        .price-range input {
+            width: 100%;
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        .why-price {
+            background: white;
+            padding: 17px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .why-price h3 {
+            margin-bottom: 12px;
+        }
+
+        .why-price p {
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        /* ================================
+           PREVIEW
+        ================================= */
+
+        .preview-content {
+            padding: 0 20px;
+        }
+
+        .large-product-image {
+            width: 100%;
+            height: 250px;
+            background: var(--light-brown);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            overflow: hidden;
+        }
+
+        .large-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .product-title-row h2 {
+            font-size: 20px;
+        }
+
+        .product-price {
+            color: var(--green);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .availability {
+            display: inline-block;
+            background: #d9efd5;
+            color: var(--green);
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+
+        .product-description {
+            color: var(--gray);
+            line-height: 1.5;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .product-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .meta-item {
+            background: #eee6da;
+            padding: 8px;
+            border-radius: 9px;
+            font-size: 11px;
+        }
+
+        .artisan-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .artisan-card p {
+            color: var(--gray);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .preview-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* ================================
+           MARKETPLACE
+        ================================= */
+
+        .marketplace-content {
+            padding: 0 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            border: 1px solid var(--border);
+            padding: 13px;
+            border-radius: 25px;
+            background: white;
+        }
+
+        .categories {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .category {
+            background: white;
+            border-radius: 20px;
+            padding: 8px 13px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .category.active {
+            background: var(--green);
+            color: white;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .market-card {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .market-image {
+            height: 130px;
+            border-radius: 10px;
+            background: var(--light-brown);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 55px;
+        }
+
+        .market-card h3 {
+            font-size: 13px;
+            margin: 10px 0;
+        }
+
+        .market-card strong {
+            color: var(--green);
+        }
+
+        .market-card p {
+            font-size: 10px;
+            color: var(--gray);
+            margin: 5px 0;
+        }
+
+        .view-button {
+            border: 1px solid var(--green);
+            color: var(--green);
+            background: white;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+
+        /* ================================
+           MY PRODUCTS
+        ================================= */
+
+        .my-products {
+            padding: 0 20px;
+        }
+
+        .my-product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .mini-product-image {
+            width: 75px;
+            height: 75px;
+            border-radius: 10px;
+            background: var(--light-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .my-product-card h3 {
+            font-size: 14px;
+        }
+
+        .my-product-card p {
+            color: var(--green);
+            margin-top: 5px;
+        }
+
+        /* ================================
+           BOTTOM NAVIGATION
+        ================================= */
+
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border-top: 1px solid #ddd;
+            padding: 10px 5px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-button {
+            border: none;
+            background: transparent;
+            color: #777;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-button span:first-child {
+            font-size: 19px;
+        }
+
+        .nav-button.active {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .landing-content {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 50px;
+            }
+
+            .landing-text h1 {
+                font-size: 43px;
+            }
+
+            .landing-text h2 {
+                font-size: 23px;
+            }
+
+            .hero-circle {
+                width: 280px;
+                height: 280px;
+            }
+
+            .hero-icon {
+                font-size: 90px;
+            }
+
+            .landing-features {
+                justify-content: center;
+                gap: 18px;
+            }
+
+            .landing-feature {
+                font-size: 11px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         LANDING PAGE
+    ====================================================== -->
+
+    <section id="landingScreen" class="screen">
+
+        <div class="landing">
+
+            <div class="landing-header">
+
+                <div class="logo">
+                    🌿 ArtisanConnect
+                </div>
+
+                <select class="language-select">
+                    <option>EN</option>
+                    <option>HI</option>
+                    <option>தமிழ்</option>
+                </select>
+
+            </div>
+
+
+            <div class="landing-content">
+
+                <div class="landing-text">
+
+                    <div class="small-heading">
+                        TRADITION MEETS OPPORTUNITY
+                    </div>
+
+                    <h1>
+                        Empowering
+                        <br>
+                        Artisans
+                    </h1>
+
+                    <h2>
+                        Building Brighter Futures
+                    </h2>
+
+                    <p>
+                        AI-powered tools to showcase your craft,
+                        reach broader markets and grow your business.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        onclick="showScreen('loginScreen')">
+
+                        Get Started →
+
+                    </button>
+
+                </div>
+
+
+                <div class="hero-circle">
+
+                    <div class="hero-icon">
+                        🧺
+                    </div>
+
+                    <p>
+                        Traditional Craft
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="landing-features">
+
+                <div class="landing-feature">
+                    🎁
+                    <span>
+                        Preserve<br>
+                        Heritage
+                    </span>
+                </div>
+
+                <div class="landing-feature">
+                    🌐
+                    <span>
+                        Reach<br>
+                        Markets
+                    </span>
+                </div>
+
+                <div class="landing-feature">
+                    📈
+                    <span>
+                        Grow<br>
+                        Together
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOGIN
+    ====================================================== -->
+
+    <section id="loginScreen" class="screen hidden">
+
+        <div class="login-screen">
+
+            <div class="login-card">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('landingScreen')">
+                    ←
+                </button>
+
+                <div class="logo">
+                    🌿 ArtisanConnect
+                </div>
+
+                <h1>
+                    Welcome Back! 👋
+                </h1>
+
+                <p>
+                    Login to continue to ArtisanConnect
+                </p>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Mobile Number / Email
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Enter your mobile number">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        placeholder="Enter password">
+
+                </div>
+
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('dashboardScreen')">
+
+                    Login
+
+                </button>
+
+
+                <div class="login-divider">
+                    or continue with
+                </div>
+
+
+                <button class="secondary-button">
+                    🌐 Continue with Google
+                </button>
+
+
+                <button class="secondary-button">
+                    📱 Continue with Mobile OTP
+                </button>
+
+
+                <div class="create-account">
+
+                    New here?
+                    <span>
+                        Create an account
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <section id="dashboardScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="app-header">
+
+                <div>
+
+                    <h2>
+                        Hello, Meena! 👋
+                    </h2>
+
+                    <p>
+                        Keep creating, the world is watching.
+                    </p>
+
+                </div>
+
+                <div class="profile-circle">
+                    M
+                </div>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <strong>
+                        12
+                    </strong>
+
+                    <span>
+                        Products
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <strong>
+                        8
+                    </strong>
+
+                    <span>
+                        Market Matches
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <strong>
+                        3
+                    </strong>
+
+                    <span>
+                        Enquiries
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <button
+                    class="dashboard-card"
+                    onclick="showScreen('addProductScreen')">
+
+                    📷
+
+                    <span>
+                        Add Product
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="dashboard-card"
+                    onclick="showScreen('myProductsScreen')">
+
+                    📦
+
+                    <span>
+                        My Products
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="dashboard-card"
+                    onclick="showScreen('voiceScreen')">
+
+                    ✨
+
+                    <span>
+                        AI Studio
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="dashboard-card"
+                    onclick="showScreen('marketplaceScreen')">
+
+                    🤝
+
+                    <span>
+                        Market Matches
+                    </span>
+
+                </button>
+
+
+                <button class="dashboard-card">
+
+                    🛒
+
+                    <span>
+                        Orders
+                    </span>
+
+                </button>
+
+
+                <button class="dashboard-card">
+
+                    📖
+
+                    <span>
+                        Learning
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <div class="tip">
+
+                <h3>
+                    💡 Today's Tip
+                </h3>
+
+                <p>
+                    Good product photos can help your products
+                    get more attention from buyers.
+                </p>
+
+            </div>
+
+
+            <div class="activity">
+
+                <h3>
+                    Recent Activity
+                </h3>
+
+
+                <div class="activity-item">
+
+                    🔔 New market match found
+
+                    <span class="activity-time">
+                        2h ago
+                    </span>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    👁 Your product received 25 views
+
+                    <span class="activity-time">
+                        5h ago
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <BottomNavigation />
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ADD PRODUCT / AI STUDIO
+    ====================================================== -->
+
+    <section id="addProductScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('dashboardScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    Add Product
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+                <span class="step-active">
+                    1 Photo
+                </span>
+
+                <span>
+                    2 Details
+                </span>
+
+                <span>
+                    3 Review
+                </span>
+
+            </div>
+
+
+            <div class="upload-box">
+
+                <div class="camera-icon">
+                    📷
+                </div>
+
+                <h3>
+                    Take a photo or upload
+                </h3>
+
+                <p>
+                    Our AI will enhance it automatically
+                </p>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onchange="previewImage(event)">
+
+            </div>
+
+
+            <div class="photo-comparison">
+
+                <div class="photo-box">
+
+                    <small>
+                        Before
+                    </small>
+
+                    <div
+                        id="beforePhoto"
+                        class="photo-placeholder">
+
+                        🧺
+
+                    </div>
+
+                </div>
+
+
+                <strong>
+                    →
+                </strong>
+
+
+                <div class="photo-box">
+
+                    <small>
+                        After AI Enhanced
+                    </small>
+
+                    <div class="photo-placeholder enhanced-photo">
+
+                        ✨🧺
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-enhancement">
+
+                <h3>
+                    ✨ AI Enhances Automatically
+                </h3>
+
+                <p>
+                    ✓ Removes background clutter
+                </p>
+
+                <p>
+                    ✓ Corrects lighting
+                </p>
+
+                <p>
+                    ✓ Improves sharpness
+                </p>
+
+                <p>
+                    ✓ Makes it marketplace ready
+                </p>
+
+            </div>
+
+
+            <div class="bottom-button">
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('voiceScreen')">
+
+                    Continue →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VOICE / MULTILINGUAL CATALOG
+    ====================================================== -->
+
+    <section id="voiceScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('addProductScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    Describe Your Product
+                </h2>
+
+            </div>
+
+
+            <div class="voice-page">
+
+                <p>
+                    Speak in your language.
+                    Our AI will create a professional catalog.
+                </p>
+
+
+                <div class="microphone"
+                     onclick="startVoice()">
+
+                    🎤
+
+                </div>
+
+
+                <p>
+                    Tap and speak
+                </p>
+
+
+                <div class="voice-wave">
+                    ▂ ▄ ▆ ▄ ▂ ▆ ▄ ▂
+                </div>
+
+
+                <select class="voice-select">
+
+                    <option>
+                        Tamil
+                    </option>
+
+                    <option>
+                        Hindi
+                    </option>
+
+                    <option>
+                        English
+                    </option>
+
+                </select>
+
+
+                <textarea
+                    id="voiceText"
+                    class="voice-text"
+                    placeholder="Or type your product description...">இது மூங்கிலால் செய்யப்பட்ட கையால் செய்யப்பட்ட கூடை.</textarea>
+
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('catalogScreen')">
+
+                    Generate Description ✨
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         AI GENERATED CATALOG
+    ====================================================== -->
+
+    <section id="catalogScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('voiceScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    AI Generated Details
+                </h2>
+
+            </div>
+
+
+            <div class="catalog-content">
+
+                <p class="catalog-note">
+                    Review and edit the details before saving.
+                </p>
+
+
+                <div class="product-image-preview">
+
+                    <div id="catalogImage">
+                        🧺
+                    </div>
+
+                </div>
+
+
+                <label class="form-label">
+                    Product Name
+                </label>
+
+                <input
+                    id="productName"
+                    class="form-input"
+                    value="Handwoven Bamboo Basket">
+
+
+                <label class="form-label">
+                    Category
+                </label>
+
+                <input
+                    id="productCategory"
+                    class="form-input"
+                    value="Home Decor">
+
+
+                <label class="form-label">
+                    Material
+                </label>
+
+                <input
+                    id="productMaterial"
+                    class="form-input"
+                    value="Bamboo">
+
+
+                <label class="form-label">
+                    Colour
+                </label>
+
+                <input
+                    id="productColour"
+                    class="form-input"
+                    value="Natural Beige">
+
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea
+                    id="productDescription"
+                    class="form-textarea">Beautiful handmade bamboo basket made by skilled artisans. Eco-friendly and suitable for home storage or decor.</textarea>
+
+
+                <label class="form-label">
+                    Tags
+                </label>
+
+                <div class="tags">
+
+                    <span class="tag">
+                        Handmade
+                    </span>
+
+                    <span class="tag">
+                        Eco-friendly
+                    </span>
+
+                    <span class="tag">
+                        Bamboo
+                    </span>
+
+                    <span class="tag">
+                        Home Decor
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('priceScreen')">
+
+                    Next: Get Price Suggestion →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PRICE ASSISTANT
+    ====================================================== -->
+
+    <section id="priceScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('catalogScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    AI Price Suggestion
+                </h2>
+
+            </div>
+
+
+            <div class="price-content">
+
+                <div class="price-card">
+
+                    <small>
+                        Suggested Selling Price
+                    </small>
+
+                    <h1 id="priceValue">
+                        ₹450
+                    </h1>
+
+                    <span class="price-status">
+                        Good for this market
+                    </span>
+
+                </div>
+
+
+                <div class="price-range">
+
+                    <input
+                        type="range"
+                        min="350"
+                        max="600"
+                        value="450"
+                        oninput="updatePrice(this.value)">
+
+                    <div class="range-values">
+
+                        <span>
+                            ₹350<br>
+                            Lower range
+                        </span>
+
+                        <span>
+                            ₹600<br>
+                            Higher range
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="why-price">
+
+                    <h3>
+                        Why this price?
+                    </h3>
+
+                    <p>
+                        ✓ Similar products in market
+                    </p>
+
+                    <p>
+                        ✓ Material cost analysis
+                    </p>
+
+                    <p>
+                        ✓ Current demand trend
+                    </p>
+
+                    <p>
+                        ✓ Handmade & unique value
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('previewScreen')">
+
+                    Next: Preview Product →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PRODUCT PREVIEW
+    ====================================================== -->
+
+    <section id="previewScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('priceScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    Product Preview
+                </h2>
+
+            </div>
+
+
+            <div class="preview-content">
+
+                <div class="large-product-image">
+
+                    <div id="previewImage">
+                        🧺
+                    </div>
+
+                </div>
+
+
+                <div class="product-title-row">
+
+                    <h2 id="previewName">
+                        Handwoven Bamboo Basket
+                    </h2>
+
+                    <div
+                        id="previewPrice"
+                        class="product-price">
+
+                        ₹450
+
+                    </div>
+
+                </div>
+
+
+                <span class="availability">
+                    Available
+                </span>
+
+
+                <p
+                    id="previewDescription"
+                    class="product-description">
+
+                    Beautiful handmade bamboo basket made by
+                    skilled artisans. Eco-friendly and suitable
+                    for home storage or decor.
+
+                </p>
+
+
+                <div class="product-meta">
+
+                    <span class="meta-item">
+                        🌿 Bamboo
+                    </span>
+
+                    <span class="meta-item">
+                        🏠 Home Decor
+                    </span>
+
+                    <span class="meta-item">
+                        🎨 Natural Beige
+                    </span>
+
+                </div>
+
+
+                <div class="artisan-card">
+
+                    <div class="profile-circle">
+                        M
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Meena Devi
+                        </strong>
+
+                        <p>
+                            Sevapur, Uttar Pradesh
+                        </p>
+
+                        <small>
+                            Bamboo Craft
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-buttons">
+
+                    <button class="secondary-button">
+                        Edit
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        onclick="showScreen('marketplaceScreen')">
+
+                        Publish
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MARKETPLACE
+    ====================================================== -->
+
+    <section id="marketplaceScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('dashboardScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    Explore Handmade Products
+                </h2>
+
+            </div>
+
+
+            <div class="marketplace-content">
+
+                <input
+                    class="search-box"
+                    placeholder="Search products, artisans or categories...">
+
+
+                <div class="categories">
+
+                    <span class="category active">
+                        All
+                    </span>
+
+                    <span class="category">
+                        Home Decor
+                    </span>
+
+                    <span class="category">
+                        Textiles
+                    </span>
+
+                    <span class="category">
+                        Jewellery
+                    </span>
+
+                </div>
+
+
+                <div class="market-grid">
+
+
+                    <div class="market-card">
+
+                        <div class="market-image">
+                            🧺
+                        </div>
+
+                        <h3>
+                            Handwoven Bamboo Basket
+                        </h3>
+
+                        <strong>
+                            ₹450
+                        </strong>
+
+                        <p>
+                            Sevapur, Uttar Pradesh
+                        </p>
+
+                        <button
+                            class="view-button"
+                            onclick="showProductDetails('basket')">
+
+                            View
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="market-card">
+
+                        <div class="market-image">
+                            🏺
+                        </div>
+
+                        <h3>
+                            Terracotta Vase
+                        </h3>
+
+                        <strong>
+                            ₹600
+                        </strong>
+
+                        <p>
+                            Kutch, Gujarat
+                        </p>
+
+                        <button
+                            class="view-button"
+                            onclick="showProductDetails('vase')">
+
+                            View
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="market-card">
+
+                        <div class="market-image">
+                            🧣
+                        </div>
+
+                        <h3>
+                            Block Print Scarf
+                        </h3>
+
+                        <strong>
+                            ₹750
+                        </strong>
+
+                        <p>
+                            Jaipur, Rajasthan
+                        </p>
+
+                        <button
+                            class="view-button"
+                            onclick="showProductDetails('scarf')">
+
+                            View
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="market-card">
+
+                        <div class="market-image">
+                            🪵
+                        </div>
+
+                        <h3>
+                            Wooden Wall Art
+                        </h3>
+
+                        <strong>
+                            ₹1,200
+                        </strong>
+
+                        <p>
+                            Channapatna, Karnataka
+                        </p>
+
+                        <button
+                            class="view-button"
+                            onclick="showProductDetails('wood')">
+
+                            View
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <BottomNavigation />
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MY PRODUCTS
+    ====================================================== -->
+
+    <section id="myProductsScreen" class="screen hidden">
+
+        <div class="mobile-container">
+
+            <div class="page-header">
+
+                <button
+                    class="back-button"
+                    onclick="showScreen('dashboardScreen')">
+
+                    ←
+
+                </button>
+
+                <h2>
+                    My Products
+                </h2>
+
+            </div>
+
+
+            <div class="my-products">
+
+
+                <div class="my-product-card">
+
+                    <div class="mini-product-image">
+                        🧺
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Handwoven Bamboo Basket
+                        </h3>
+
+                        <p>
+                            ₹450
+                        </p>
+
+                        <small>
+                            Available
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="my-product-card">
+
+                    <div class="mini-product-image">
+                        🏺
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Terracotta Vase
+                        </h3>
+
+                        <p>
+                            ₹600
+                        </p>
+
+                        <small>
+                            Available
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="my-product-card">
+
+                    <div class="mini-product-image">
+                        🧣
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Embroidered Dupatta
+                        </h3>
+
+                        <p>
+                            ₹1,200
+                        </p>
+
+                        <small>
+                            Available
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-button full-button"
+                    onclick="showScreen('addProductScreen')">
+
+                    + Add New Product
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+    /* ==============================================
+       SCREEN NAVIGATION
+    ============================================== */
+
+    function showScreen(screenId) {
+
+        const screens =
+            document.querySelectorAll(".screen");
+
+        screens.forEach(function(screen) {
+
+            screen.classList.add("hidden");
+
+        });
+
+        document
+            .getElementById(screenId)
+            .classList.remove("hidden");
+
+        window.scrollTo(0, 0);
+    }
+
+
+    /* ==============================================
+       IMAGE PREVIEW
+    ============================================== */
+
+    function previewImage(event) {
+
+        const file =
+            event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const imageURL =
+            URL.createObjectURL(file);
+
+        const beforePhoto =
+            document.getElementById("beforePhoto");
+
+        beforePhoto.innerHTML =
+            `<img
+                src="${imageURL}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                    border-radius:12px;
+                "
+            >`;
+
+        const catalogImage =
+            document.getElementById("catalogImage");
+
+        catalogImage.innerHTML =
+            `<img
+                src="${imageURL}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                "
+            >`;
+
+        const previewImage =
+            document.getElementById("previewImage");
+
+        previewImage.innerHTML =
+            `<img
+                src="${imageURL}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                "
+            >`;
+    }
+
+
+    /* ==============================================
+       PRICE SLIDER
+    ============================================== */
+
+    function updatePrice(value) {
+
+        document.getElementById("priceValue")
+            .innerText = "₹" + value;
+
+        document.getElementById("previewPrice")
+            .innerText = "₹" + value;
+    }
+
+
+    /* ==============================================
+       VOICE DEMO
+    ============================================== */
+
+    function startVoice() {
+
+        const textBox =
+            document.getElementById("voiceText");
+
+        if (
+            !("webkitSpeechRecognition" in window) &&
+            !("SpeechRecognition" in window)
+        ) {
+
+            alert(
+                "Voice recognition is not supported in this browser. You can type the product description instead."
+            );
+
+            return;
+        }
+
+        const SpeechRecognition =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+        const recognition =
+            new SpeechRecognition();
+
+        recognition.lang = "ta-IN";
+
+        recognition.continuous = false;
+
+        recognition.interimResults = false;
+
+        recognition.start();
+
+        recognition.onstart = function() {
+
+            alert(
+                "Speak now in Tamil..."
+            );
+
+        };
+
+        recognition.onresult = function(event) {
+
+            const result =
+                event.results[0][0].transcript;
+
+            textBox.value = result;
+
+        };
+
+        recognition.onerror = function() {
+
+            alert(
+                "Voice input could not be captured. Please try again."
+            );
+
+        };
+
+    }
+
+
+    /* ==============================================
+       PRODUCT DETAILS DEMO
+    ============================================== */
+
+    function showProductDetails(product) {
+
+        if (product === "basket") {
+
+            alert(
+                "Handwoven Bamboo Basket\n\n" +
+                "Price: ₹450\n" +
+                "Material: Bamboo\n" +
+                "Craft: Bamboo Craft\n" +
+                "Location: Sevapur, Uttar Pradesh\n\n" +
+                "Contact Artisan"
+            );
+
+        }
+
+        else if (product === "vase") {
+
+            alert(
+                "Terracotta Vase\n\n" +
+                "Price: ₹600\n" +
+                "Material: Terracotta\n" +
+                "Location: Kutch, Gujarat"
+            );
+
+        }
+
+        else if (product === "scarf") {
+
+            alert(
+                "Block Print Scarf\n\n" +
+                "Price: ₹750\n" +
+                "Material: Cotton\n" +
+                "Location: Jaipur, Rajasthan"
+            );
+
+        }
+
+        else if (product === "wood") {
+
+            alert(
+                "Wooden Wall Art\n\n" +
+                "Price: ₹1,200\n" +
+                "Material: Wood\n" +
+                "Location: Channapatna, Karnataka"
+            );
+
+        }
+
+    }
+
+
+    /* ==============================================
+       BOTTOM NAVIGATION
+    ============================================== */
+
+    function BottomNavigation() {
+
+        return;
+
+    }
+
+
+</script>
+
+
+<!--
+=========================================================
+PRODUCT OBJECT USED BY THE PROTOTYPE
+=========================================================
+
+The project follows your team's exact Product field names:
+
+id
+image
+name
+category
+material
+colour
+description
+tags
+price
+artisanName
+village
+craft
+story
+availability
+
+Example:
+
+const product = {
+
+    id: 101,
+
+    image: "basket.jpg",
+
+    name: "Handwoven Bamboo Basket",
+
+    category: "Home Decor",
+
+    material: "Bamboo",
+
+    colour: "Natural Beige",
+
+    description:
+        "Beautiful handmade bamboo basket.",
+
+    tags:
+        ["Handmade", "Eco-friendly", "Bamboo"],
+
+    price: 450,
+
+    artisanName: "Meena Devi",
+
+    village: "Sevapur",
+
+    craft: "Bamboo Craft",
+
+    story:
+        "Traditional bamboo craft passed down through generations.",
+
+    availability: "Available"
+
+};
+
+=========================================================
+-->
+
+</body>
+
+</html>
