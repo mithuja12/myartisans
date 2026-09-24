@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyArtisans - Voice & Language</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>MyArtisans</h1>
+        <p>Voice & Multilingual Assistant</p>
+    </header>
+
+    <main>
+
+        <section class="card">
+
+            <h2>🎙️ Artisan Voice Assistant</h2>
+
+            <p>
+                Speak in Tamil, English or Hindi.
+                Your speech will be converted into text.
+            </p>
+
+            <!-- Language Selection -->
+            <label for="language">
+                Select Language
+            </label>
+
+            <select id="language">
+                <option value="ta-IN">தமிழ் (Tamil)</option>
+                <option value="en-IN">English</option>
+                <option value="hi-IN">हिन्दी (Hindi)</option>
+            </select>
+
+            <!-- Voice Button -->
+            <button id="voiceButton" onclick="startVoiceRecognition()">
+                🎙️ Start Speaking
+            </button>
+
+            <!-- Status -->
+            <p id="status">
+                Click the button and start speaking.
+            </p>
+
+            <!-- Speech Output -->
+            <label for="speechText">
+                Your Speech
+            </label>
+
+            <textarea
+                id="speechText"
+                rows="6"
+                placeholder="Your spoken words will appear here..."
+            ></textarea>
+
+            <!-- NLP Result -->
+            <div class="result-box">
+
+                <h3>🧠 NLP Analysis</h3>
+
+                <p>
+                    <strong>Detected Intent:</strong>
+                    <span id="intent">Waiting...</span>
+                </p>
+
+                <p>
+                    <strong>Detected Language:</strong>
+                    <span id="detectedLanguage">Waiting...</span>
+                </p>
+
+                <p>
+                    <strong>Keywords:</strong>
+                    <span id="keywords">Waiting...</span>
+                </p>
+
+            </div>
+
+            <!-- Clear Button -->
+            <button
+                class="clear-button"
+                onclick="clearVoiceData()"
+            >
+                Clear
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
