@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyArtisans Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>MyArtisans Marketplace</h1>
+        <p>Discover handmade products from local artisans</p>
+    </header>
+
+    <main>
+
+        <section class="search-section">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products, artisans, villages..."
+                onkeyup="displayProducts()"
+            >
+
+            <select id="categoryFilter" onchange="displayProducts()">
+                <option value="">All Categories</option>
+                <option value="Basket">Basket</option>
+                <option value="Pottery">Pottery</option>
+                <option value="Textile">Textile</option>
+                <option value="Jewellery">Jewellery</option>
+            </select>
+
+            <select id="materialFilter" onchange="displayProducts()">
+                <option value="">All Materials</option>
+                <option value="Bamboo">Bamboo</option>
+                <option value="Clay">Clay</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Wood">Wood</option>
+            </select>
+
+        </section>
+
+        <section>
+            <h2>Products</h2>
+
+            <div id="productList" class="product-list"></div>
+        </section>
+
+        <section id="productDetails" class="details-section"></section>
+
+        <section id="enquirySection" class="enquiry-section">
+
+            <h2>Customer Enquiry</h2>
+
+            <input type="text" id="customerName" placeholder="Your Name">
+
+            <input type="email" id="customerEmail" placeholder="Your Email">
+
+            <input type="tel" id="customerPhone" placeholder="Your Phone">
+
+            <textarea
+                id="customerMessage"
+                placeholder="Your message"
+            ></textarea>
+
+            <button onclick="submitEnquiry()">
+                Send Enquiry
+            </button>
+
+        </section>
+
+        <section id="orderSection" class="order-section">
+
+            <h2>Order Product</h2>
+
+            <input
+                type="text"
+                id="orderName"
+                placeholder="Your Name"
+            >
+
+            <input
+                type="tel"
+                id="orderPhone"
+                placeholder="Your Phone"
+            >
+
+            <input
+                type="number"
+                id="orderQuantity"
+                placeholder="Quantity"
+                min="1"
+            >
+
+            <textarea
+                id="orderAddress"
+                placeholder="Delivery Address"
+            ></textarea>
+
+            <button onclick="placeOrder()">
+                Place Order
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
